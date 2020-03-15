@@ -325,7 +325,7 @@ def train_selfie(train_loader, selfie_model, P, criterion, optimizer, epoch, sch
             patch_loss += loss_
 
             prec1_adv, _ = accuracy(logit, temptarget, topk=(1,3))
-            top1.update(prec1_adv.item(), 1)
+            top1.update(prec1_adv[0], 1)
 
         optimizer.zero_grad()
         patch_loss.backward()

@@ -198,10 +198,7 @@ def main():
         all_seq=[np.random.permutation(16) for ind in range(400)]
         pickle.dump(all_seq, open(os.path.join(args.modeldir, 'img_test_seq.pkl'),'wb'))
         # all_seq=pickle.load(open(os.path.join(args.modeldir, 'img_test_seq.pkl'),'rb'))
-        valObj, prec1 = val_selfie(val_loader, selfie_model, P, criterion, all_seq)
-
-        adv_valObj, adv_prec1 = val_pgd_selfie(val_loader, selfie_model, P, criterion, all_seq)
-        
+      
         print("Begin selfie training...")
         for epoch in range(args.start_epoch, args.epochs):
             print("The learning rate is {}".format(optimizer.param_groups[0]['lr']))
@@ -213,6 +210,7 @@ def main():
 
             stats_._update(trainObj, top1, valObj, prec1,adv_valObj, adv_prec1)
 
+            
             is_best = prec1 > best_prec1
             best_prec1 = max(prec1, best_prec1)
 
@@ -395,8 +393,8 @@ def train_selfie_adv(train_loader, selfie_model, P, criterion, optimizer, epoch,
             patch_loss_adv += loss__adv
 
             prec1_adv, _ = accuracy(logit_adv, temptarget_adv, topk=(1,3))
-            top1.update(prec1_adv.item(), 1)
-
+            top1.update(prec1_adv[0], 1)
+        
         
         patch_loss=0.5*(patch_loss+patch_loss_adv)
 
@@ -419,6 +417,7 @@ def train_selfie_adv(train_loader, selfie_model, P, criterion, optimizer, epoch,
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})\t'.format(
                    epoch, index, len(train_loader), batch_time=batch_time,
                    data_time=data_time, loss=losses, top1=top1))
+
     return losses.avg, top1.avg
 
 def val_selfie(val_loader, selfie_model, P, criterion, all_seq):
@@ -639,7 +638,7 @@ def val_pgd_selfie(val_loader, selfie_model, P, criterion, all_seq):
 
             features = torch.cat(features, 2) # (B, F, NP)
             patch_loss = 0
-
+        
             for i in range(len(t)):
                 activate = output_encoder[:, i, :].unsqueeze(1)
                 pre = torch.bmm(activate, features)

@@ -133,9 +133,9 @@ def main():
         acc,loss = train(train_loader, model, criterion, optimizer, epoch, scheduler, permutation)
 
         # evaluate on validation set
-        tacc,tloss = validate(val_loader, model, criterion, permutation)
+        tacc,tloss = validate(test_loader, model, criterion, permutation)
 
-        atacc,atloss = validate_adv(val_loader, model, criterion, permutation)
+        atacc,atloss = validate_adv(test_loader, model, criterion, permutation)
 
         train_acc.append(acc)
         ta.append(tacc)
@@ -181,15 +181,15 @@ def main():
     model_path = os.path.join(args.save_dir, 'ata_best_model.pt')
     model.load_state_dict(torch.load(model_path)['state_dict'])
     print('testing result of ata best model')
-    tacc,tloss = validate(val_loader, model, criterion)
-    atacc,atloss = validate_adv(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion, permutation)
+    atacc,atloss = validate_adv(test_loader, model, criterion, permutation)
 
 
     model_path = os.path.join(args.save_dir, 'best_model.pt')
     model.load_state_dict(torch.load(model_path)['state_dict'])
     print('testing result of ta best model')
-    tacc,tloss = validate(val_loader, model, criterion)
-    atacc,atloss = validate_adv(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion, permutation)
+    atacc,atloss = validate_adv(test_loader, model, criterion, permutation)
 
         
 def train(train_loader, model, criterion, optimizer, epoch, scheduler, permutation):
