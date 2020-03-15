@@ -39,20 +39,19 @@ python main.py --data --batch_size --pretrained_model --save_dir --gpu
 
 ### Pre-training
 
-1. attack_algo.py: including the attack functions for jigsaw, rotation, selfie respectively
-
-     		2. attack_algo_ensemble.py: attack function of ensemble pre-training
-     		3. dataset.py: dataset for cifar & imagenet32
-     		4. ensemble_pretrain.py: main code of ensemble pretrain with penalty
-     		5. functions.py: functions for plotting
-     		6. model_ensemble.py: model for ensemble pre-training
-     		7. resenetv2.py: ResNet50v2
-     		8. train_adv_jigsaw.py: main code of  adversarial jigsaw pre-training
-     		9. train_adv_rotation.py: main code of adversarial rotation pre-training
-     		10. train_adv_selfie.py: main code of adversarial selfie pre-training
-     		11. train_std_jigsaw.py: main code of  standard jigsaw pre-training
-     		12. train_std_rotation.py: main code of standard rotation pre-training
-     		13. train_std_selfie.py: main code of standard selfie pre-training
+- attack_algo.py: including the attack functions for jigsaw, rotation, selfie respectively
+- attack_algo_ensemble.py: attack function of ensemble pre-training
+- dataset.py: dataset for cifar & imagenet32
+- ensemble_pretrain.py: main code of ensemble pretrain with penalty
+- functions.py: functions for plotting
+- model_ensemble.py: model for ensemble pre-training
+- resenetv2.py: ResNet50v2
+- train_adv_jigsaw.py: main code of  adversarial jigsaw pre-training
+- train_adv_rotation.py: main code of adversarial rotation pre-training
+- train_adv_selfie.py: main code of adversarial selfie pre-training
+- train_std_jigsaw.py: main code of  standard jigsaw pre-training
+- train_std_rotation.py: main code of standard rotation pre-training
+- train_std_selfie.py: main code of standard selfie pre-training
 
 ### Fine-tuning:
 
