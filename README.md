@@ -1,4 +1,26 @@
-## Detailed Commands
+# Adversarial Robustness: From Self-Supervised Pre-Training to Fine-Tuning
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+[Adversarial Robustness: From Self-Supervised Pre-Training to Fine-Tuning]()
+
+Tianlong Chen, Sijia Liu, Shiyu Chang, Yu Cheng, Lisa Amini, and Zhangyang Wang
+
+In CVPR 2020.
+
+## Overview
+
+Robust pretrained models can benefit the subsequent fine-tuning in two ways: **i) boosting final model robustness; ii) saving the computation cost, if proceeding towards adversarial fine-tuning.** Here we attach the summary of our achieved performace on CIFAR-10.
+
+![](./doc_imgs/intro.png)
+
+## Methods
+
+![](./doc_imgs/method.png)
+
+## Training
+
+Current this code base works for Python version >= 3.5, pytorch >= 1.2.0, torchvision >= 0.4.0
 
 **Selfie pretraining:**
 
@@ -33,8 +55,6 @@ python -u ensemble_pretrain.py --gpu=1 --save_dir ensemble_pre_penalty --data ..
 python main.py --data --batch_size --pretrained_model --save_dir --gpu
 ```
 
-
-
 ## Details of files
 
 ### Pre-training
@@ -55,7 +75,21 @@ python main.py --data --batch_size --pretrained_model --save_dir --gpu
 
 ### Fine-tuning:
 
-1. attack_algo.py: attack for finetune task
-2. main.py: adversarial training on cifar10
-3. model_ensemble.py: multi-branch model for fine-tuning
-4. resnetv2.py:  Resnet50v2
+- attack_algo.py: attack for finetune task
+- main.py: adversarial training on cifar10
+- model_ensemble.py: multi-branch model for fine-tuning
+- resnetv2.py:  Resnet50v2
+
+## Citation
+
+If you are use this code for you research, please cite our paper.
+
+```
+@inproceedings{chen2020AR,
+  title={Adversarial Robustness: From Self-Supervised Pre-Training to Fine-Tuning},
+  author={Chen, Tianlong and Liu, Sijia and Chang, Shiyu and Cheng, Yu and Amini, Lisa and Wang, Zhangyang},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+  year={2020}
+}
+```
+
