@@ -209,8 +209,6 @@ def main():
             is_best = prec1 > best_prec1
             best_prec1 = max(prec1, best_prec1)
 
-            ata_is_best = adv_prec1 > ata_best_prec1
-            ata_best_prec1 = max(adv_prec1, ata_best_prec1)
             if is_best:
                 torch.save(
                     {
@@ -219,7 +217,7 @@ def main():
                     'selfie_state': selfie_model.state_dict(),
                     'optimizer': optimizer.state_dict(),
                     'best_prec1': best_prec1,
-                    }, os.path.join(args.modeldir, 'adv_selfie_TA_model_best.pth.tar'))
+                    }, os.path.join(args.modeldir, 'std_selfie_TA_model_best.pth.tar'))
 
             torch.save(
                     {
@@ -228,7 +226,7 @@ def main():
                     'selfie_state': selfie_model.state_dict(),
                     'optimizer': optimizer.state_dict(),
                     'best_prec1': best_prec1,
-                    }, os.path.join(args.modeldir, 'adv_selfie_checkpoint.pth.tar'))
+                    }, os.path.join(args.modeldir, 'std_selfie_checkpoint.pth.tar'))
 
             plot_curve(stats_, args.modeldir, True)
             data = stats_
@@ -236,7 +234,7 @@ def main():
    
 
         print("testing TA best selfie model from checkpoint...")
-        model_path = os.path.join(args.modeldir, 'adv_selfie_TA_model_best.pth.tar')
+        model_path = os.path.join(args.modeldir, 'std_selfie_TA_model_best.pth.tar')
         model_loaded = torch.load(model_path)
 
         P.load_state_dict(model_loaded['P_state'])
@@ -272,16 +270,6 @@ def train_selfie(train_loader, selfie_model, P, criterion, optimizer, epoch, sch
         pos = t
         t = torch.from_numpy(np.array(pos)).cuda()
 
-        input_adv=PGD_attack(input,
-            selfie_model=selfie_model,
-            P=P,
-            criterion=criterion,
-            seq=seq,
-            eps=(8/255),
-            steps=10,
-            gamma=(2/255),
-            randinit=True)
-            
         input = input.cuda()
 
         #selfie forward

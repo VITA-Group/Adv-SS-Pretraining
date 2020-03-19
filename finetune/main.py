@@ -60,7 +60,7 @@ def main():
     cudnn.benchmark = True
 
     if args.pretrained_model:
-        model_dict_pretrain = torch.load(args.pretrained_model, map_location=torch.device('cuda:'+str(args.gpu)))['state_dict']
+        model_dict_pretrain = torch.load(args.pretrained_model, map_location=torch.device('cuda:'+str(args.gpu)))
         model.load_state_dict(model_dict_pretrain, strict=False)
         print('model loaded:', args.pretrained_model)
 
@@ -181,14 +181,14 @@ def main():
     best_model_path = os.path.join(args.save_dir, 'ata_best_model.pt')
     print('start testing ATA best model')
     model.load_state_dict(torch.load(best_model_path)['state_dict'])
-    tacc,tloss = validate(val_loader, model, criterion)
-    atacc,atloss = validate_adv(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion)
+    atacc,atloss = validate_adv(test_loader, model, criterion)
 
     best_model_path = os.path.join(args.save_dir, 'best_model.pt')
     print('start testing TA best model')
     model.load_state_dict(torch.load(best_model_path)['state_dict'])
-    tacc,tloss = validate(val_loader, model, criterion)
-    atacc,atloss = validate_adv(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion)
+    atacc,atloss = validate_adv(test_loader, model, criterion)
         
         
 
@@ -197,6 +197,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
     losses = AverageMeter()
     top1 = AverageMeter()
 
+    # criterion_kl = nn.KLDivLoss(reduction='batchmean')
     # switch to train mode
     model.train()
 
@@ -221,14 +222,17 @@ def train(train_loader, model, criterion, optimizer, epoch):
         input_adv = input_adv.cuda()
 
         # compute output
-        output = model(input_adv)
-        loss = criterion(output, target)
+        output_adv = model(input_adv)
+        # output_clean = model(input)
+
+        # loss = criterion(output_clean, target) + criterion_kl(F.log_softmax(output_adv, dim=1), F.softmax(output_clean, dim=1))
+        loss = criterion(output_adv, target)
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-        output = output.float()
+        output = output_adv.float()
         loss = loss.float()
         # measure accuracy and record loss
         prec1 = accuracy(output.data, target)[0]

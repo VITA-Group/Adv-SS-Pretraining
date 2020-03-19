@@ -158,7 +158,7 @@ def main():
     model_path = os.path.join(args.save_dir, 'best_model.pt')
     model.load_state_dict(torch.load(model_path)['state_dict'])
     print('testing result of ta best model')
-    tacc,tloss = validate(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion)
 
         
 

@@ -8,6 +8,8 @@ Tianlong Chen, Sijia Liu, Shiyu Chang, Yu Cheng, Lisa Amini, and Zhangyang Wang
 
 In CVPR 2020.
 
+**[Trained Models](https://drive.google.com/drive/folders/18oY4mcK0qkcT5jzsRb-1A9R3Rzz5dEr8?usp=sharing) in Our Paper**. 
+
 ## Overview
 
 Robust pretrained models can benefit the subsequent fine-tuning in two ways: **i) boosting final model robustness; ii) saving the computation cost, if proceeding towards adversarial fine-tuning.** Here we attach the summary of our achieved performace on CIFAR-10.
@@ -92,4 +94,3 @@ If you are use this code for you research, please cite our paper.
   year={2020}
 }
 ```
-

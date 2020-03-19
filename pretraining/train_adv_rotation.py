@@ -24,11 +24,11 @@ from attack_algo import PGD_normal
 from advertorch.utils import NormalizeByChannelMeanStd
 
 parser = argparse.ArgumentParser(description='PyTorch Cifar10 Training')
-parser.add_argument('--batch_size', type=int, default=128, help='batch size')
+parser.add_argument('--batch_size', type=int, default=256, help='batch size')
 parser.add_argument('--lr', default=0.1, type=float, help='initial learning rate')
 parser.add_argument('--momentum', default=0.9, type=float, help='momentum')
 parser.add_argument('--weight_decay', default=3e-4, type=float, help='weight decay')
-parser.add_argument('--epochs', default=200, type=int, help='number of total epochs to run')
+parser.add_argument('--epochs', default=100, type=int, help='number of total epochs to run')
 parser.add_argument('--print_freq', default=50, type=int, help='print frequency')
 parser.add_argument('--data', type=str, default='/data4/zzy/data/', help='location of the data corpus')
 parser.add_argument('--save_dir', help='The directory used to save the trained models', default='adv', type=str)
@@ -175,15 +175,15 @@ def main():
     model_path = os.path.join(args.save_dir, 'ata_best_model.pt')
     model.load_state_dict(torch.load(model_path)['state_dict'])
     print('testing result of ata best model')
-    tacc,tloss = validate(val_loader, model, criterion)
-    atacc,atloss = validate_adv(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion)
+    atacc,atloss = validate_adv(test_loader, model, criterion)
 
 
     model_path = os.path.join(args.save_dir, 'best_model.pt')
     model.load_state_dict(torch.load(model_path)['state_dict'])
     print('testing result of ta best model')
-    tacc,tloss = validate(val_loader, model, criterion)
-    atacc,atloss = validate_adv(val_loader, model, criterion)
+    tacc,tloss = validate(test_loader, model, criterion)
+    atacc,atloss = validate_adv(test_loader, model, criterion)
 
         
 def train(train_loader, model, criterion, optimizer, epoch, scheduler):
@@ -220,6 +220,7 @@ def train(train_loader, model, criterion, optimizer, epoch, scheduler):
         output_adv = model(input_adv)
         output_clean = model(input)
         loss = (criterion(output_adv, target)+criterion(output_clean, target))/2
+        # loss = criterion(output_adv, target)
 
         optimizer.zero_grad()
         loss.backward()

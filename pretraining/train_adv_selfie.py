@@ -39,7 +39,7 @@ parser.add_argument('--epochs', default=200, type=int, metavar='N',
                     help='number of steps of selfie')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
-parser.add_argument('-b', '--batch-size', default=256, type=int,
+parser.add_argument('-b', '--batch-size', default=128, type=int,
                     metavar='N', help='mini-batch size (default: 256)')
 parser.add_argument('--lr', '--learning-rate', default=0.1, type=float,
                     metavar='LR', help='initial learning rate')
@@ -308,7 +308,7 @@ def train_selfie_adv(train_loader, selfie_model, P, criterion, optimizer, epoch,
             eps=(8/255),
             steps=10,
             gamma=(2/255),
-            randinit=True)
+            randinit=True).cuda()
             
         input = input.cuda()
 
@@ -397,6 +397,7 @@ def train_selfie_adv(train_loader, selfie_model, P, criterion, optimizer, epoch,
         
         
         patch_loss=0.5*(patch_loss+patch_loss_adv)
+        # patch_loss = patch_loss_adv
 
         optimizer.zero_grad()
         patch_loss.backward()

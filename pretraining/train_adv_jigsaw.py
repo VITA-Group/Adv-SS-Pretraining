@@ -27,8 +27,8 @@ parser.add_argument('--data', type=str, default='../data', help='location of the
 parser.add_argument('--batch_size', type=int, default=128, help='batch size')
 parser.add_argument('--lr', default=0.1, type=float, help='initial learning rate')
 parser.add_argument('--momentum', default=0.9, type=float, help='momentum')
-parser.add_argument('--weight_decay', default=5e-4, type=float, help='weight decay')
-parser.add_argument('--epochs', default=200, type=int, help='number of total epochs to run')
+parser.add_argument('--weight_decay', default=3e-4, type=float, help='weight decay')
+parser.add_argument('--epochs', default=100, type=int, help='number of total epochs to run')
 parser.add_argument('--print_freq', default=50, type=int, help='print frequency')
 parser.add_argument('--save_dir', help='The directory used to save the trained models', default='model', type=str)
 parser.add_argument('--gpu', type=int, default=0, help='gpu device id')
@@ -227,6 +227,7 @@ def train(train_loader, model, criterion, optimizer, epoch, scheduler, permutati
         output_adv = model(input_adv)
         output_clean = model(input)
         loss = (criterion(output_adv, target)+criterion(output_clean, target))/2
+        # loss = criterion(output_adv, target)
 
         optimizer.zero_grad()
         loss.backward()
