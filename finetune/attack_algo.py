@@ -58,3 +58,26 @@ def PGD_normal(x, loss_fn, y=None, eps=None, model=None, steps=3, gamma=None, ra
 
     return x_adv
 
+
+def Trades(x, eps=None, model=None, steps=3, gamma=None, randinit=False):
+
+    criterion_kl = nn.KLDivLoss()
+    x_adv = x.clone()
+    if randinit:
+        x_adv += torch.randn(x_adv.shape).cuda()* 0.001
+    x_adv = Variable(x_adv.cuda(), requires_grad=True)
+    x = x.cuda()
+
+    for t in range(steps):
+        out_adv = model(x_adv)
+        out = model(x)
+
+        loss_adv0 = criterion_kl(F.log_softmax(out_adv, dim=1),
+                                F.softmax(out, dim=1))
+
+        grad0 = torch.autograd.grad(loss_adv0, x_adv, only_inputs=True)[0]
+        x_adv.data.add_(gamma * torch.sign(grad0.data))
+        linfball_proj(x, eps, x_adv, in_place=True)
+        x_adv = torch.clamp(x_adv, 0, 1)
+
+    return x_adv
