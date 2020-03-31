@@ -53,6 +53,8 @@ python -u ensemble_pretrain.py --gpu=1 --save_dir ensemble_pre_penalty --data ..
 
 **Finetune:**
 
+We offer main.py (mardy), main_trades.py and main_trades2.py three schemes for fine-tuning.
+
 ```shell
 python main.py --data --batch_size --pretrained_model --save_dir --gpu
 ```
