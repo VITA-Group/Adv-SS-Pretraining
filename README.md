@@ -87,10 +87,13 @@ python main.py --data --batch_size --pretrained_model --save_dir --gpu
 If you are use this code for you research, please cite our paper.
 
 ```
-@inproceedings{chen2020AR,
+@inproceedings{chenadversarial,
   title={Adversarial Robustness: From Self-Supervised Pre-Training to Fine-Tuning},
   author={Chen, Tianlong and Liu, Sijia and Chang, Shiyu and Cheng, Yu and Amini, Lisa and Wang, Zhangyang},
   booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
   year={2020}
 }
 ```
+
+
+
