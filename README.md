@@ -89,12 +89,13 @@ python main.py --data --batch_size --pretrained_model --save_dir --gpu
 If you are use this code for you research, please cite our paper.
 
 ```
-@inproceedings{chenadversarial,
-  title={Adversarial Robustness: From Self-Supervised Pre-Training to Fine-Tuning},
-  author={Chen, Tianlong and Liu, Sijia and Chang, Shiyu and Cheng, Yu and Amini, Lisa and Wang, Zhangyang},
-  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
-  year={2020}
-}
+@InProceedings{Chen_2020_CVPR,
+author = {Chen, Tianlong and Liu, Sijia and Chang, Shiyu and Cheng, Yu and Amini, Lisa and Wang, Zhangyang},
+title = {Adversarial Robustness: From Self-Supervised Pre-Training to Fine-Tuning},
+booktitle = {The IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2020}
+} 
 ```
 
 
