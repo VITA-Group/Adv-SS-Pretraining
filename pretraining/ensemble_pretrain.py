@@ -28,7 +28,7 @@ from attack_algo_ensemble import PGD_attack_3module,PGD_attack_jigsaw,PGD_attack
 
 parser = argparse.ArgumentParser(description='PyTorch Cifar10 Training')
 parser.add_argument('--data', type=str, default='/datadrive/data', help='location of the data corpus')
-parser.add_argument('--batch_size', type=int, default=80, help='batch size')
+parser.add_argument('-b', '--batch_size', type=int, default=80, help='batch size')
 parser.add_argument('--lr', default=0.001, type=float, help='initial learning rate')
 parser.add_argument('--momentum', default=0.9, type=float, help='momentum')
 parser.add_argument('--weight_decay', default=1e-4, type=float, help='weight decay')

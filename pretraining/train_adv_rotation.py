@@ -24,7 +24,7 @@ from attack_algo import PGD_normal
 from advertorch.utils import NormalizeByChannelMeanStd
 
 parser = argparse.ArgumentParser(description='PyTorch Cifar10 Training')
-parser.add_argument('--batch_size', type=int, default=256, help='batch size')
+parser.add_argument('-b', '--batch_size', type=int, default=256, help='batch size')
 parser.add_argument('--lr', default=0.1, type=float, help='initial learning rate')
 parser.add_argument('--momentum', default=0.9, type=float, help='momentum')
 parser.add_argument('--weight_decay', default=3e-4, type=float, help='weight decay')
